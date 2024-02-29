@@ -22,7 +22,7 @@ FROM alpine:latest
 # Set the working directory
 WORKDIR /app
 
-# Copy the binary from the builder stage
+# Copy only the necessary files from the builder stage
 COPY --from=builder /app/bin/embed .
 
 # Expose any necessary ports
