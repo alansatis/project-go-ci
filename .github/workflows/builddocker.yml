@@ -17,6 +17,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: List files in the directory (debugging step)
+        run: ls -al
+
       - name: Log in to the Container registry
         uses: docker/login-action@v2
         with:
