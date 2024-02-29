@@ -17,6 +17,9 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v3
 
+      - name: Clear Docker build cache
+        run: docker builder prune -a -f
+      
       - name: List files in the directory (debugging step)
         run: ls -al chapter12
 
@@ -31,6 +34,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./Dockerfile
+          file: ./chapter12/Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/chapter12:latest
