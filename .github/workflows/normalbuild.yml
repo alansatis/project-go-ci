@@ -33,7 +33,9 @@ jobs:
         uses: actions/checkout@v1
 
       - name: List Files
-        run: ls -R
+        run: |
+          cd chapter12
+          ls -R
   
   debug-info:
     name: Debug Info
@@ -45,6 +47,7 @@ jobs:
 
       - name: Debug Info
         run: |
+          cd chapter12
           pwd
           make --version
           make build
