@@ -13,6 +13,9 @@ WORKDIR /app
 # Copie os arquivos go.mod e go.sum para o diretório /app
 COPY go.mod go.sum ./
 
+# Baixe as dependências do módulo Go
+RUN go mod download
+
 # Copie todo o conteúdo do diretório chapter12 para /app/chapter12
 COPY chapter12/ /app/chapter12/
 
