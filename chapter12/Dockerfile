@@ -1,9 +1,8 @@
 # 1. Compile the app.
-FROM golang:1.18  as builder
+FROM golang:1.18 as builder
 WORKDIR /app
 COPY . .
-RUN ls -la
-RUN go mod init github.com/alansatis/project-go-ci/chapter12
+WORKDIR /app/chapter12  # Defina o diretório de trabalho para onde estão os arquivos Go
 RUN go mod tidy
 RUN ls -la
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
@@ -14,7 +13,6 @@ RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /v
 RUN mkdir -p /app
 
 # 3. Copy the binary from step 1 and set it as the default command.
-COPY --from=builder /app/bin/embed /app
+COPY --from=builder /app/chapter12/bin/embed /app
 WORKDIR /app
-RUN ls -la
 CMD /app/embed
