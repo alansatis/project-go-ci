@@ -12,7 +12,8 @@ RUN go mod init github.com/alansatis/project-go-ci/chapter12
 #debug 02
 RUN cat go.mod
 RUN go mod tidy
-
+#debug 03
+RUN ls -al chapter12
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
 # 2. Create final environment for the compiled binary.
