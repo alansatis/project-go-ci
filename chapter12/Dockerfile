@@ -9,9 +9,9 @@ RUN ls -al
 
 RUN go mod init github.com/alansatis/project-go-ci/chapter12
 
-#debbug 02
+#debug 02
 RUN cat go.mod
-RUN cat go.sum
+RUN go mod tidy
 
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
