@@ -1,7 +1,7 @@
 # 1. Compile the app.
 FROM golang:1.18 as builder
 WORKDIR /app/chapter12
-COPY go.mod go.sum ./
+COPY go.mod go.sum /app/chapter12/
 RUN go mod download
 RUN go mod tidy
 COPY . .
