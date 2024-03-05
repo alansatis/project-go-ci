@@ -3,7 +3,7 @@
 FROM golang:1.18  as builder
 WORKDIR /app
 COPY . .
-RUN go mod init
+RUN go mod init chapter12
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 # 2. Create final environment for the compiled binary.
 FROM alpine:latest
