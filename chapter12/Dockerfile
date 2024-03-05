@@ -1,6 +1,7 @@
 # 1. Compile the app.
 FROM golang:1.18 as builder
-WORKDIR /app
+COPY go.mod go.sum ./
+RUN go mod tidy
 COPY . .
 WORKDIR /app/chapter12  # Defina o diretório de trabalho para onde estão os arquivos Go
 RUN go mod tidy
