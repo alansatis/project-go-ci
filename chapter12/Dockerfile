@@ -5,7 +5,8 @@ FROM golang:1.18 as builder
 WORKDIR /app
 
 # Copy the Go module files
-COPY go.mod go.sum ./
+COPY chapter12/go.mod chapter12/go.sum ./
+
 
 # Download and install the dependencies
 RUN go mod download
@@ -16,17 +17,11 @@ COPY . .
 # Build the Go application
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
-# Use a minimal base image to reduce the image size
+# 2. Create final environment for the compiled binary.
 FROM alpine:latest
-
-# Set the working directory
+RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /var/cache/apk/*
+RUN mkdir -p /app
+# 3. Copy the binary from step 1 and set it as the default command.
+COPY --from=builder /app/bin/embed /app
 WORKDIR /app
-
-# Copy only the necessary files from the builder stage
-COPY --from=builder /app/bin/embed .
-
-# Expose any necessary ports
-EXPOSE 8080
-
-# Command to run the application
-CMD ["./embed"]
+CMD /app/embed
