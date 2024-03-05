@@ -4,6 +4,7 @@ WORKDIR /app
 COPY . .
 RUN go mod init github.com/alansatis/project-go-ci/chapter12
 RUN go mod tidy
+RUN ls -la
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
 # 2. Create final environment for the compiled binary.
