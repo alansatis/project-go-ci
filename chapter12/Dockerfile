@@ -10,20 +10,23 @@ RUN mkdir -p /app
 # Defina o diretório de trabalho
 WORKDIR /app
 
-# Crie um diretório temporário para a cópia dos arquivos Go
+# Copie os arquivos go.mod e go.sum diretamente para o diretório /app
+COPY go.mod go.sum /app/
+
+# Crie um diretório temporário para a cópia dos arquivos do módulo Go
 RUN mkdir -p /tmp/gocache
 
-# Copie os arquivos go.mod e go.sum para o diretório temporário
-COPY go.mod go.sum /tmp/gocache/
+# Copie o conteúdo do diretório chapter12 para /app/chapter12
+COPY chapter12/ /app/chapter12/
+
+# Copie os arquivos do módulo Go para o diretório temporário
+COPY chapter12/go.* /tmp/gocache/
 
 # Baixe as dependências do módulo Go
 RUN cd /tmp/gocache && go mod download
 
-# Mova os arquivos go.mod e go.sum para o diretório /app
+# Mova os arquivos do módulo Go para o diretório /app
 RUN mv /tmp/gocache/* /app/
-
-# Copie todo o conteúdo do diretório chapter12 para /app/chapter12
-COPY chapter12/ /app/chapter12/
 
 # Exiba informações sobre o diretório atual
 RUN ls -al
