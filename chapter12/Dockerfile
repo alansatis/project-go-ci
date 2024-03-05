@@ -2,6 +2,7 @@
 FROM golang:1.18  as builder
 WORKDIR /app
 COPY . .
+RUN ls -la
 RUN go mod init github.com/alansatis/project-go-ci/chapter12
 RUN go mod tidy
 RUN ls -la
@@ -15,4 +16,5 @@ RUN mkdir -p /app
 # 3. Copy the binary from step 1 and set it as the default command.
 COPY --from=builder /app/bin/embed /app
 WORKDIR /app
+RUN ls -la
 CMD /app/embed
