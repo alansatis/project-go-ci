@@ -13,7 +13,9 @@ RUN go mod init github.com/alansatis/project-go-ci/chapter12
 RUN cat go.mod
 RUN go mod tidy
 #debug 03
-RUN ls -al chapter12
+COPY go.* ./
+COPY chapter12/ ./chapter12/
+RUN ls -al
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
 # 2. Create final environment for the compiled binary.
@@ -24,5 +26,4 @@ WORKDIR /app
 
 # 3. Copy the binary from step 1 and set it as the default command.
 COPY --from=builder /app/bin/embed /app
-WORKDIR /app
 CMD /app/embed
