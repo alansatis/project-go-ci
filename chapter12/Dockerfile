@@ -6,7 +6,6 @@ COPY go.sum /app/chapter12/
 RUN ls -la
 RUN go mod download
 RUN go mod tidy
-COPY go.mod go.sum /app/chapter12/
 RUN ls -la
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
