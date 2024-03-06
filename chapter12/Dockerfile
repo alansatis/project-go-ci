@@ -1,10 +1,12 @@
 # 1. Compile the app.
 FROM golang:1.18 as builder
 WORKDIR /app/chapter12
-COPY go.mod go.sum /app/chapter12/
+COPY go.mod /app/chapter12/
+COPY go.sum /app/chapter12/
+RUN ls -la
 RUN go mod download
 RUN go mod tidy
-COPY . /app/chapter12/
+COPY go.mod go.sum /app/chapter12/
 RUN ls -la
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
