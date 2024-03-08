@@ -21,7 +21,7 @@ jobs:
         run: docker builder prune -a -f
       
       - name: List files in the directory (debugging step)
-        run: ls -al chapter12
+        run: ls -al project-go-ci
 
       - name: Log in to the Container registry
         uses: docker/login-action@v2
