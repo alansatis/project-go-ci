@@ -1,4 +1,4 @@
-# 1. Compile the app.
+# 1. Compile the app..
 FROM golang:1.18  as builder
 WORKDIR /app
 COPY . .
