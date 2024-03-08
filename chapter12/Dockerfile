@@ -1,13 +1,15 @@
 # 1. Compile the app.
 FROM golang:1.18 as builder
+
+# Copy only the go.mod and go.sum files to download dependencies.
+COPY go.mod go.sum ./
+
 WORKDIR /app/chapter12
 
-# Copy only the go.mod file to download dependencies.
-COPY go.mod ./
-COPY go.sum ./
+# Download dependencies.
 RUN go mod download
 
-# Copy the entire application source code.
+# Copy the rest of the application source code.
 COPY . .
 
 # Check the copied files and directories.
@@ -18,7 +20,7 @@ RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
 # 2. Create final environment for the compiled binary.
 FROM alpine:latest
-RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /var/cache/apk/*
+RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /var/cache/apk/
 RUN mkdir -p /app/chapter12
 
 # 3. Copy the binary from step 1 and set it as the default command.
