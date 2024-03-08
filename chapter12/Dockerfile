@@ -2,8 +2,9 @@
 FROM golang:1.18 as builder
 WORKDIR /app/chapter12
 
-# Copy only the go.mod and go.sum files to download dependencies.
-COPY go.mod go.sum ./
+# Copy only the go.mod file to download dependencies.
+COPY go.mod ./
+COPY go.sum ./
 RUN go mod download
 
 # Copy the entire application source code.
