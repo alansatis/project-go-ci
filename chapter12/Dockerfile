@@ -12,9 +12,6 @@ RUN go mod init chapter12
 # Download dependencies.
 RUN go mod download
 
-# Remove the temporary go.mod file.
-RUN rm go.mod
-
 # Copy the rest of the application source code.
 COPY . .
 
