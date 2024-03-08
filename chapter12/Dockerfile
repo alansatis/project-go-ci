@@ -1,6 +1,6 @@
-# 1. Compile the app..
-FROM golang:1.18  as builder
-WORKDIR /app
+# 1. Compile the app.
+FROM golang:1.18 as builder
+WORKDIR /app/chapter12  # Defina o diretório de trabalho correto
 COPY . .
 RUN ls -la
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
@@ -11,6 +11,6 @@ RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /v
 RUN mkdir -p /app
 
 # 3. Copy the binary from step 1 and set it as the default command.
-COPY --from=builder /app/bin/embed /app
+COPY --from=builder /app/chapter12/bin/embed /app
 WORKDIR /app
 CMD /app/embed
