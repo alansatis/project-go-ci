@@ -4,6 +4,8 @@ WORKDIR /app/chapter12
 
 # Copy only the go.mod and go.sum files to download dependencies.
 COPY go.mod go.sum ./
+
+# Download dependencies.
 RUN go mod download
 
 # Copy the rest of the application source code.
@@ -11,9 +13,6 @@ COPY . .
 
 # Check the copied files and directories.
 RUN ls -la
-
-# Run go mod tidy to ensure dependencies are consistent.
-RUN go mod tidy
 
 # Build the application.
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
