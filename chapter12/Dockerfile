@@ -3,14 +3,17 @@ FROM golang:1.18 as builder
 
 WORKDIR /app/chapter12
 
-# Copy only the go.mod and go.sum files to download dependencies.
-COPY go.mod go.sum ./
-
 # Set the GOPROXY to a known value to ensure reproducibility.
 RUN go env -w GOPROXY=proxy.golang.org
 
+# Run go mod init to create the initial go.mod file.
+RUN go mod init chapter12
+
 # Download dependencies.
 RUN go mod download
+
+# Remove the temporary go.mod file.
+RUN rm go.mod
 
 # Copy the rest of the application source code.
 COPY . .
@@ -27,10 +30,8 @@ FROM alpine:latest
 RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /var/cache/apk/
 RUN mkdir -p /app/chapter12
 
-# Change to the build directory before copying files.
-WORKDIR /app/chapter12
-
 # Copy only the necessary files from the builder stage.
 COPY --from=builder /app/chapter12/bin/embed /app/chapter12/
 
+WORKDIR /app/chapter12
 CMD ./bin/embed
