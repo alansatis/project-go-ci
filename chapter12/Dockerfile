@@ -7,7 +7,7 @@ WORKDIR /app/chapter12
 RUN go env -w GOPROXY=proxy.golang.org
 
 # Run go mod init to create the initial go.mod file.
-RUN go mod init chapter12
+RUN go mod init myapp
 
 # Download dependencies.
 RUN go mod download
