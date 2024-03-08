@@ -6,6 +6,9 @@ WORKDIR /app/chapter12
 # Copy only the go.mod and go.sum files to download dependencies.
 COPY go.mod go.sum ./
 
+# Set the GOPROXY to a known value to ensure reproducibility.
+RUN go env -w GOPROXY=proxy.golang.org
+
 # Download dependencies.
 RUN go mod download
 
