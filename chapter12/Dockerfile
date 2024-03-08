@@ -1,9 +1,8 @@
 # 1. Compile the app.
-FROM golang:1.18 as builder
-WORKDIR /app/chapter12
+FROM golang:1.18  as builder
+WORKDIR /app
 COPY . .
-RUN ls -la /app/chapter12
-RUN CGO_ENABLED=0 GOOS=linux go build -a -o /app/bin/embed
+RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
 
 # 2. Create final environment for the compiled binary.
 FROM alpine:latest
