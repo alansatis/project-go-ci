@@ -1,6 +1,9 @@
 # 1. Compile the app.
 FROM golang:1.18 as builder
-WORKDIR /app/chapter12  # Defina o diretório de trabalho correto
+WORKDIR /app/chapter12
+COPY go.mod go.sum ./
+RUN go mod download
+RUN go mod tidy
 COPY . .
 RUN ls -la
 RUN CGO_ENABLED=0 GOOS=linux go build -a -o bin/embed
