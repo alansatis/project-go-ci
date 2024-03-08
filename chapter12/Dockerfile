@@ -4,11 +4,9 @@ WORKDIR /app/chapter12
 
 # Copy only the go.mod and go.sum files to download dependencies.
 COPY go.mod go.sum ./
-
-# Download dependencies.
 RUN go mod download
 
-# Copy the rest of the application source code.
+# Copy the entire application source code.
 COPY . .
 
 # Check the copied files and directories.
@@ -23,7 +21,7 @@ RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /v
 RUN mkdir -p /app/chapter12
 
 # 3. Copy the binary from step 1 and set it as the default command.
-COPY --from=builder /app/chapter12/bin/embed /app/chapter12
+COPY --from=builder /app/chapter12/bin/embed /app/chapter12/
 
 WORKDIR /app/chapter12
 CMD ./bin/embed
