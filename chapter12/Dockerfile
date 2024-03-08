@@ -24,8 +24,10 @@ FROM alpine:latest
 RUN apk --update upgrade && apk --no-cache add curl ca-certificates && rm -rf /var/cache/apk/
 RUN mkdir -p /app/chapter12
 
+# Change to the build directory before copying files.
+WORKDIR /app/chapter12
+
 # Copy only the necessary files from the builder stage.
 COPY --from=builder /app/chapter12/bin/embed /app/chapter12/
 
-WORKDIR /app/chapter12
 CMD ./bin/embed
