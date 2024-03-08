@@ -31,6 +31,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          file: ./chapter12/Dockerfile
+          file: ./Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}/chapter12:latest
